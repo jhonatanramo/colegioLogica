@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'config',
+    'tenan',
     'rest_framework',
     'corsheaders',  
 ]
@@ -99,12 +99,21 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 # Configuración de base de datos para desarrollo y producción
+
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.parse(
+        'postgresql://postgres:EGOQOTkPyCVTlgLTmgReFoliMnEEynOe@nozomi.proxy.rlwy.net:12527/railway',
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 }
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+#}
 
 # Si hay DATABASE_URL (en producción), usar PostgreSQL
 if 'DATABASE_URL' in os.environ:
