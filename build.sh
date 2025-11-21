@@ -11,4 +11,3 @@ python manage.py migrate
 python manage.py collectstatic --noinput
 
 # Ejecutar seed (si existe)
-python manage.py seed

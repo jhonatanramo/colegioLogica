@@ -1,6 +1,14 @@
 from django.urls import path
+from .Crud.usuario import usuarioCrear,usuarioListar
+from .Crud.notificaciones import notiCrear,notiListar,notiEliminar
 
 urlpatterns = [
-    # Aquí puedes agregar las rutas específicas de la aplicación 'tenan'
 
+    path('usuario/crear/',usuarioCrear),
+    path('usuario/listar/',usuarioListar),
+
+    #-----   Notificaciones
+    path('notificacion/crear/',notiCrear),
+    path('notificacion/listar/',notiListar),
+    path('notificacion/eliminar/',notiEliminar),
 ]

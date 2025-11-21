@@ -70,6 +70,12 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    "http://127.0.0.1:8000",
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "http://localhost:3002",
+    "http://localhost:3003",
+    "http://localhost:3004",
     "https://coro-juvenil.vercel.app",
     "https://coro-juvenil-git-main-jhonatanramos-projects.vercel.app",
     "https://coro-juvenil-11c7cukbc-jhonatanramos-projects.vercel.app",
@@ -101,20 +107,19 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Configuración de base de datos para desarrollo y producción
 
 
-DATABASES = {
-    'default': dj_database_url.parse(
-        'postgresql://postgres:EGOQOTkPyCVTlgLTmgReFoliMnEEynOe@nozomi.proxy.rlwy.net:12527/railway',
-        conn_max_age=600,
-        conn_health_checks=True,
-    )
-}
 #DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
+#    'default': dj_database_url.parse(
+#        'postgresql://postgres:EGOQOTkPyCVTlgLTmgReFoliMnEEynOe@nozomi.proxy.rlwy.net:12527/railway',
+#        conn_max_age=600,
+#        conn_health_checks=True,
+#    )
 #}
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 # Si hay DATABASE_URL (en producción), usar PostgreSQL
 if 'DATABASE_URL' in os.environ:
     DATABASES['default'] = dj_database_url.config(
