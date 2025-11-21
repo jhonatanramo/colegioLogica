@@ -67,16 +67,15 @@ ROOT_URLCONF = 'backend.urls'
 CORS_ALLOW_ALL_ORIGINS = False  # Más seguro en producción
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "http://127.0.0.1:8000",
+    # Local development
     "http://localhost:3000",
     "http://localhost:3001",
     "http://localhost:3002",
-    "http://localhost:3003",
-    "http://localhost:3004",
-    "http://colegiovista.vercel.app",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+
+    # Frontend en Vercel
+    "https://colegiovista.vercel.app",
     "https://coro-juvenil.vercel.app",
     "https://coro-juvenil-git-main-jhonatanramos-projects.vercel.app",
     "https://coro-juvenil-11c7cukbc-jhonatanramos-projects.vercel.app",
