@@ -64,7 +64,7 @@ ROOT_URLCONF = 'backend.urls'
 
 # CORS settings
 # CORS settings
-CORS_ALLOW_ALL_ORIGINS = False  # Más seguro en producción
+CORS_ALLOW_ALL_ORIGINS = True  # Más seguro en producción
 
 CORS_ALLOWED_ORIGINS = [
     # Local development
