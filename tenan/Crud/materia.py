@@ -2,53 +2,59 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from ..models import Materia
+from rest_framework.parsers import JSONParser
+from rest_framework.response import Response
+from rest_framework import status
 
-# ------------------------------------------------
-# CREAR MATERIA
-# ------------------------------------------------
+# ---------------------------------------
+# CREAR USUARIO
+# ---------------------------------------
+
 @api_view(['POST'])
 def materiaCrear(request):
-    data = request.data
-
+    print("DATA RECIBIDA:", request.data)  # <-- MOSTRAR LO QUE ENVÍAS
     try:
         materia = Materia.objects.create(
-            nombre=data.get('nombre')
+            nombre=request.data.get('nombre'),
         )
-        return Response({
-            "message": "Materia creada correctamente",
-            "id": materia.id
-        }, status=status.HTTP_201_CREATED)
-
+        return Response({"message": "notificacion creado", "id": materia.id})
+    
     except Exception as e:
-        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        print("ERROR EXACTO:", str(e))     # <--- AQUI APARECERA EL MOTIVO DEL 400
+        return Response({"error": str(e)}, status=400)
 
-
-# ------------------------------------------------
-# ELIMINAR MATERIA
-# ------------------------------------------------
+# ---------------------------------------
+# ELIMINAR USUARIO
+# ---------------------------------------
 @api_view(['DELETE'])
-def materiaEliminar(request, id):
+def materiaEliminar(request):
+    id = request.data.get('id')  # leer desde body
+    if not id:
+        return Response({"error": "ID no proporcionado"}, status=status.HTTP_400_BAD_REQUEST)
+    
     try:
-        materia = Materia.objects.get(id=id)
-        materia.delete()
-        return Response({"message": "Materia eliminada"}, status=status.HTTP_200_OK)
-
+        noti = Materia.objects.get(id=id)
+        noti.delete()
+        return Response({"message": "materia eliminada"}, status=status.HTTP_200_OK)
     except Materia.DoesNotExist:
         return Response({"error": "Materia no encontrada"}, status=status.HTTP_404_NOT_FOUND)
 
-
-# ------------------------------------------------
-# LISTAR MATERIAS
-# ------------------------------------------------
+# ---------------------------------------
+# LISTAR USUARIOS
+# ---------------------------------------
 @api_view(['GET'])
 def materiaListar(request):
     try:
-        materias = Materia.objects.all().values(
-            'id',
-            'nombre',
-        ).order_by('id')
+        materia = Materia.objects.all()  # Más recientes primero
+        # Crear lista con fecha y hora separadas
+        lista = []
+        for n in materia:
+            lista.append({
+                'id': n.id,
+                'nombre': n.nombre,
+            })
 
-        return Response(list(materias), status=status.HTTP_200_OK)
+        return Response(lista, status=200)
 
     except Exception as e:
-        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({"error": str(e)}, status=500)
